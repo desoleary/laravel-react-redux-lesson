@@ -15,7 +15,8 @@ require('./bootstrap');
 
 require('./components/Example');
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger'
 
 const mathReducer = (state = {
     result: 1,
@@ -63,11 +64,8 @@ const userReducer = (state = {
     return state; // reducer always needs to return a state
 };
 
-const store = createStore(combineReducers({mathReducer, userReducer})); // Attaching multiple reducers to the store
-
-store.subscribe(() => {
-   console.log("Store updated!", store.getState())
-});
+// Adds middleware
+const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(createLogger())); // Attaching multiple reducers to the store
 
 store.dispatch({
     type: 'ADD',
