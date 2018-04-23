@@ -14078,14 +14078,11 @@ __webpack_require__(43);
 
 
 
-var initialState = {
-    result: 1,
-    lastValues: [],
-    username: 'Max'
-};
-
-var reducer = function reducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+var mathReducer = function mathReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        result: 1,
+        lastValues: []
+    };
     var action = arguments[1];
 
     switch (action.type) {
@@ -14106,7 +14103,30 @@ var reducer = function reducer() {
     return state; // reducer always needs to return a state
 };
 
-var store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer);
+var userReducer = function userReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        name: 'Max',
+        age: 27
+    };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case "SET_NAME":
+            // Immutable
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                name: action.payload
+            });
+            break;
+        case "SET_AGE":
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                age: action.payload
+            });
+            break;
+    }
+    return state; // reducer always needs to return a state
+};
+
+var store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* createStore */])(Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* combineReducers */])({ mathReducer: mathReducer, userReducer: userReducer })); // Attaching multiple reducers to the store
 
 store.subscribe(function () {
     console.log("Store updated!", store.getState());
@@ -14125,6 +14145,11 @@ store.dispatch({
 store.dispatch({
     type: 'SUBTRACT',
     payload: 80
+});
+
+store.dispatch({
+    type: 'SET_AGE',
+    payload: 30
 });
 
 /***/ }),
@@ -54970,8 +54995,8 @@ module.exports = camelize;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createStore; });
-/* unused harmony export combineReducers */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createStore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return combineReducers; });
 /* unused harmony export bindActionCreators */
 /* unused harmony export applyMiddleware */
 /* unused harmony export compose */

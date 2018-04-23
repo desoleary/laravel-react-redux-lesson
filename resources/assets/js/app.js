@@ -15,15 +15,12 @@ require('./bootstrap');
 
 require('./components/Example');
 
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-const initialState = {
+const mathReducer = (state = {
     result: 1,
-    lastValues: [],
-    username: 'Max'
-};
-
-const reducer = (state = initialState, action) => {
+    lastValues: []
+}, action) => {
     switch (action.type) {
         case "ADD":
             // Immutable
@@ -44,7 +41,29 @@ const reducer = (state = initialState, action) => {
     return state; // reducer always needs to return a state
 };
 
-const store = createStore(reducer);
+const userReducer = (state = {
+    name: 'Max',
+    age: 27
+}, action) => {
+    switch (action.type) {
+        case "SET_NAME":
+            // Immutable
+            state = {
+                ...state,  // give all the previous state object and push them into this object
+                name: action.payload
+            };
+            break;
+        case "SET_AGE":
+            state = {
+                ...state, // give all the previous state object and push them into this object
+                age: action.payload
+            };
+            break;
+    }
+    return state; // reducer always needs to return a state
+};
+
+const store = createStore(combineReducers({mathReducer, userReducer})); // Attaching multiple reducers to the store
 
 store.subscribe(() => {
    console.log("Store updated!", store.getState())
@@ -63,4 +82,9 @@ store.dispatch({
 store.dispatch({
     type: 'SUBTRACT',
     payload: 80
+});
+
+store.dispatch({
+    type: 'SET_AGE',
+    payload: 30
 });
