@@ -17,19 +17,34 @@ require('./components/Example');
 
 import { createStore } from 'redux';
 
-const reducer = (state, action) => {
+const initialState = {
+    result: 1,
+    lastValues: [],
+    username: 'Max'
+};
+
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD":
-            state = state + action.payload;
+            // Immutable
+            state = {
+                ...state,  // give all the previous state object and push them into this object
+                result: (state.result + action.payload),
+                lastValues: [...state.lastValues, action.payload]
+            };
             break;
         case "SUBTRACT":
-            state = state - action.payload;
+            state = {
+                ...state, // give all the previous state object and push them into this object
+                result: state.result - action.payload,
+                lastValues: [...state.lastValues, action.payload]
+            };
             break;
     }
     return state; // reducer always needs to return a state
 };
 
-const store = createStore(reducer, 1); // where `1` denotes the initial state
+const store = createStore(reducer);
 
 store.subscribe(() => {
    console.log("Store updated!", store.getState())

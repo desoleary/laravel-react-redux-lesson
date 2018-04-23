@@ -14056,6 +14056,9 @@ module.exports = __webpack_require__(58);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(63);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -14075,19 +14078,35 @@ __webpack_require__(43);
 
 
 
-var reducer = function reducer(state, action) {
+var initialState = {
+    result: 1,
+    lastValues: [],
+    username: 'Max'
+};
+
+var reducer = function reducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
     switch (action.type) {
         case "ADD":
-            state = state + action.payload;
+            // Immutable
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                result: state.result + action.payload,
+                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
+            });
             break;
         case "SUBTRACT":
-            state = state - action.payload;
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                result: state.result - action.payload,
+                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
+            });
             break;
     }
     return state; // reducer always needs to return a state
 };
 
-var store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer, 1); // where `1` denotes the initial state
+var store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer);
 
 store.subscribe(function () {
     console.log("Store updated!", store.getState());
