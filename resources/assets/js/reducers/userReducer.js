@@ -3,7 +3,7 @@ const userReducer = (state = {
     age: 27
 }, action) => {
     switch (action.type) {
-        case "USER_SET_NAME":
+        case "USER_SET_NAME_FULFILLED":
             // Immutable
             state = {
                 ...state,  // give all the previous state object and push them into this object

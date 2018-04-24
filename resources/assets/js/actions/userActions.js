@@ -1,7 +1,12 @@
+// Configured for async calling
 export function setName(name) {
     return {
         type: 'USER_SET_NAME',
-        payload: name
+        payload: new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(name)
+            }, 500);
+        })
     };
 }
 
