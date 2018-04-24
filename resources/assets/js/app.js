@@ -15,60 +15,10 @@ require('./bootstrap');
 
 import { render } from 'react-dom';
 import React from 'react'
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createLogger } from 'redux-logger'
 import { Provider } from 'react-redux';
 
 import App from './containers/App';
-
-const mathReducer = (state = {
-    result: 1,
-    lastValues: []
-}, action) => {
-    switch (action.type) {
-        case "ADD":
-            // Immutable
-            state = {
-                ...state,  // give all the previous state object and push them into this object
-                result: (state.result + action.payload),
-                lastValues: [...state.lastValues, action.payload]
-            };
-            break;
-        case "SUBTRACT":
-            state = {
-                ...state, // give all the previous state object and push them into this object
-                result: state.result - action.payload,
-                lastValues: [...state.lastValues, action.payload]
-            };
-            break;
-    }
-    return state; // reducer always needs to return a state
-};
-
-const userReducer = (state = {
-    name: 'Max',
-    age: 27
-}, action) => {
-    switch (action.type) {
-        case "SET_NAME":
-            // Immutable
-            state = {
-                ...state,  // give all the previous state object and push them into this object
-                name: action.payload
-            };
-            break;
-        case "SET_AGE":
-            state = {
-                ...state, // give all the previous state object and push them into this object
-                age: action.payload
-            };
-            break;
-    }
-    return state; // reducer always needs to return a state
-};
-
-// Adds middleware
-const store = createStore(combineReducers({math: mathReducer, user: userReducer}), {}, applyMiddleware(createLogger())); // Attaching multiple reducers to the store
+import store from './store'
 
 render(
     <Provider store={store}>

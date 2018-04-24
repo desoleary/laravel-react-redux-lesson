@@ -15178,14 +15178,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_redux_logger__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_redux__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_App__ = __webpack_require__(100);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__containers_App__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store__ = __webpack_require__(102);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -15208,62 +15203,10 @@ __webpack_require__(28);
 
 
 
-
-var mathReducer = function mathReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-        result: 1,
-        lastValues: []
-    };
-    var action = arguments[1];
-
-    switch (action.type) {
-        case "ADD":
-            // Immutable
-            state = _extends({}, state, { // give all the previous state object and push them into this object
-                result: state.result + action.payload,
-                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
-            });
-            break;
-        case "SUBTRACT":
-            state = _extends({}, state, { // give all the previous state object and push them into this object
-                result: state.result - action.payload,
-                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
-            });
-            break;
-    }
-    return state; // reducer always needs to return a state
-};
-
-var userReducer = function userReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-        name: 'Max',
-        age: 27
-    };
-    var action = arguments[1];
-
-    switch (action.type) {
-        case "SET_NAME":
-            // Immutable
-            state = _extends({}, state, { // give all the previous state object and push them into this object
-                name: action.payload
-            });
-            break;
-        case "SET_AGE":
-            state = _extends({}, state, { // give all the previous state object and push them into this object
-                age: action.payload
-            });
-            break;
-    }
-    return state; // reducer always needs to return a state
-};
-
-// Adds middleware
-var store = Object(__WEBPACK_IMPORTED_MODULE_2_redux__["d" /* createStore */])(Object(__WEBPACK_IMPORTED_MODULE_2_redux__["c" /* combineReducers */])({ math: mathReducer, user: userReducer }), {}, Object(__WEBPACK_IMPORTED_MODULE_2_redux__["a" /* applyMiddleware */])(Object(__WEBPACK_IMPORTED_MODULE_3_redux_logger__["createLogger"])())); // Attaching multiple reducers to the store
-
 Object(__WEBPACK_IMPORTED_MODULE_0_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_4_react_redux__["a" /* Provider */],
-    { store: store },
-    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_App__["a" /* default */], null)
+  __WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* Provider */],
+  { store: __WEBPACK_IMPORTED_MODULE_4__store__["a" /* default */] },
+  __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__containers_App__["a" /* default */], null)
 ), window.document.getElementById('app'));
 
 /***/ }),
@@ -57783,6 +57726,7 @@ var User = function User(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Main__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_User__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_userActions__ = __webpack_require__(105);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57790,6 +57734,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -57839,15 +57784,124 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         setName: function setName(name) {
-            dispatch({
-                type: "SET_NAME",
-                payload: name
-            });
+            dispatch(Object(__WEBPACK_IMPORTED_MODULE_4__actions_userActions__["a" /* setName */])(name));
         }
     };
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(App)); // Hooks up `App` component
+
+/***/ }),
+/* 101 */,
+/* 102 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_logger__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redux_logger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_mathReducer__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducers_userReducer__ = __webpack_require__(104);
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_redux__["d" /* createStore */])(Object(__WEBPACK_IMPORTED_MODULE_0_redux__["c" /* combineReducers */])({
+    math: __WEBPACK_IMPORTED_MODULE_2__reducers_mathReducer__["a" /* default */],
+    user: __WEBPACK_IMPORTED_MODULE_3__reducers_userReducer__["a" /* default */]
+}), {}, Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* applyMiddleware */])(Object(__WEBPACK_IMPORTED_MODULE_1_redux_logger__["createLogger"])()) // Attaching multiple reducers to the store
+));
+
+/***/ }),
+/* 103 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var mathReducer = function mathReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        result: 1,
+        lastValues: []
+    };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case "MATH_ADD":
+            // Immutable
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                result: state.result + action.payload,
+                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
+            });
+            break;
+        case "MATH_SUBTRACT":
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                result: state.result - action.payload,
+                lastValues: [].concat(_toConsumableArray(state.lastValues), [action.payload])
+            });
+            break;
+    }
+    return state; // reducer always needs to return a state
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (mathReducer);
+
+/***/ }),
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var userReducer = function userReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+        name: 'Max',
+        age: 27
+    };
+    var action = arguments[1];
+
+    switch (action.type) {
+        case "USER_SET_NAME":
+            // Immutable
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                name: action.payload
+            });
+            break;
+        case "USER_SET_AGE":
+            state = _extends({}, state, { // give all the previous state object and push them into this object
+                age: action.payload
+            });
+            break;
+    }
+    return state; // reducer always needs to return a state
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (userReducer);
+
+/***/ }),
+/* 105 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setName;
+/* unused harmony export setAge */
+function setName(name) {
+    return {
+        type: 'USER_SET_NAME',
+        payload: name
+    };
+}
+
+function setAge(age) {
+    return {
+        type: 'USER_SET_AGE',
+        payload: age
+    };
+}
 
 /***/ })
 /******/ ]);
