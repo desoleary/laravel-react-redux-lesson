@@ -13,10 +13,13 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
-
+import { render } from 'react-dom';
+import React from 'react'
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger'
+import { Provider } from 'react-redux';
+
+import App from './components/App';
 
 const mathReducer = (state = {
     result: 1,
@@ -65,24 +68,11 @@ const userReducer = (state = {
 };
 
 // Adds middleware
-const store = createStore(combineReducers({mathReducer, userReducer}), {}, applyMiddleware(createLogger())); // Attaching multiple reducers to the store
+const store = createStore(combineReducers({math: mathReducer, user: userReducer}), {}, applyMiddleware(createLogger())); // Attaching multiple reducers to the store
 
-store.dispatch({
-    type: 'ADD',
-    payload: 100
-});
-
-store.dispatch({
-    type: 'ADD',
-    payload: 22
-});
-
-store.dispatch({
-    type: 'SUBTRACT',
-    payload: 80
-});
-
-store.dispatch({
-    type: 'SET_AGE',
-    payload: 30
-});
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    window.document.getElementById('app')
+);
